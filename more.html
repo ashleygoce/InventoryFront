@@ -203,7 +203,7 @@
 </div>
 
 <div class="dashboard">
-    <img src="Icons/menu.png" alt="Dashboard" onclick="window.location.href='dashboard.html'">
+    <img src="Icons/menu.png" alt="Dashboard" onclick="window.location.href='index.html'">
     <img src="Icons/folder.png" alt="Folder" onclick="window.location.href='products.html'">
     <img src="Icons/search.png" alt="Search" onclick="window.location.href='search.html'">
     <img src="Icons/more.png" alt="More Options" onclick="window.location.href='more.html'">
@@ -304,7 +304,7 @@ function clearData() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 alert("Data cleared!");
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             } else {
                 alert("Failed to clear data. Please try again later.");
             }
