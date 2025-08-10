@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0D1321;
+            color: #ffffff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        .dashboard {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            background-color: rgba(211, 220, 222, 0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .dashboard img:hover {
+            transform: scale(1.1); /* Increase size on hover */
+            transition: transform 0.3s ease; /* Add transition for smooth animation */
+        }
+
+        .profile-image-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .admin-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .transparent-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: background-color 0.3s, padding 0.3s;
+        }
+
+        .transparent-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .transparent-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .transparent-button {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: url('profile.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(211, 220, 222, 0.8);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: right;
+        }
+
+        .modal-content h2,
+        .modal-content p {
+            text-align: justify;
+            color: #000000; /* Change this to your desired color */
+        }
+
+        .close {
+            color: #000000;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .transparent-button.small {
+            background-color: #263159;
+			color: #fff;
+			max-width: 200px;
+            margin: 10px auto 0;
+        }
+
+        #changePasswordModal .modal-content {
+            background-color: rgba(211, 220, 222, 0.8);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        #changePasswordModal .modal-content h2,
+        #changePasswordModal .modal-content p {
+            text-align: justify;
+            color: #000000; /* Change this to your desired color */
+        }
+
+        #changePasswordModal .modal-content input {
+            width: 92%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #888;
+            margin-bottom: 10px; /* Add margin to separate inputs */
+        }
+
+        /* Right align the buttons */
+        .button-right {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-image-container">
+    <img src="Icons/profile.png" alt="Profile icon" class="profile-image">
+    <p class="admin-text">ADMIN</p>
+</div>
+
+<div class="dashboard">
+    <img src="Icons/menu.png" alt="Dashboard" onclick="window.location.href='dashboard.html'">
+    <img src="Icons/folder.png" alt="Folder" onclick="window.location.href='products.html'">
+    <img src="Icons/search.png" alt="Search" onclick="window.location.href='search.html'">
+    <img src="Icons/more.png" alt="More Options" onclick="window.location.href='more.html'">
+</div>
+
+<div class="buttons-container">
+    <button class="transparent-button" onclick="openModal('userInfoModal')">User Info</button>
+    <button class="transparent-button" onclick="confirmClearData()">Clear Data</button>
+    <button class="transparent-button" onclick="window.location.href='login.html'">Sign Out</button>
+</div>
+
+
+
+<!-- Warning Popup -->
+<div id="warningPopup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('warningPopup')">&times;</span>
+        <h2>Warning!</h2>
+        <p>Are you sure you want to clear all data?</p>
+        <div class="button-right">
+            <button class="transparent-button small" onclick="clearData()">Yes</button>
+            <button class="transparent-button small" onclick="closeModal('warningPopup')">No</button>
+        </div>
+    </div>
+</div>
+
+<!-- User Info Modal -->
+<div id="userInfoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('userInfoModal')">&times;</span>
+        <h2>User Info</h2>
+        <p><b>Name:</b> Raverene Isidro</p>
+        <div class="button-right">
+            <button class="transparent-button small" onclick="openModal('changePasswordModal')">Change Password</button>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('changePasswordModal')">&times;</span>
+        <h2>Change Password</h2>
+        <p><input type="password" id="oldPassword" placeholder="Old Password"></p>
+        <p><input type="password" id="newPassword" placeholder="New Password"></p>
+        <p><input type="password" id="confirmPassword" placeholder="Confirm Password"></p>
+        <div class="button-right">
+            <button class="transparent-button small" onclick="changePassword()">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "flex";
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+}
+
+function changePassword() {
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if (newPassword && confirmPassword) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_password.php", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("Password changed successfully!");
+                    closeModal('changePasswordModal');
+                } else {
+                    alert("Failed to change password. Please try again later.");
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ newPassword: newPassword }));
+    } else {
+        alert("Please fill in both fields!");
+    }
+}
+
+function clearData() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "clear_data.php", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                alert("Data cleared!");
+                window.location.href = 'dashboard.html';
+            } else {
+                alert("Failed to clear data. Please try again later.");
+            }
+        }
+    };
+    xhr.send();
+}
+
+
+function confirmClearData() {
+    openModal('warningPopup');
+}
+
+function confirmSignOut() {
+    if (confirm("Are you sure you want to sign out?")) {
+        window.location.href = 'login.html';
+    }
+}
+
+
+</script>
+

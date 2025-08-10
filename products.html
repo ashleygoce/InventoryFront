@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0D1321; /* Updated background color */
+            color: #ffffff; /* Set text color to white */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px; /* Increased font size */
+            margin-top: 105px; /* Adjusted margin for spacing */
+            margin-bottom: -2px; /* Adjusted margin for spacing */
+            font-weight: bold;
+        }
+
+        .products-heading {
+            font-weight: bold; /* Added bold font weight */
+        }
+
+        .overview-heading {
+            font-weight: bold; /* Added bold font weight */
+            font-size: 24px; /* Adjusted font size */
+            margin-top: 0; /* Removed top margin */
+        }
+
+        .total-section {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px; /* Adjusted margin to move the section closer to the header */
+        }
+
+        .total-rectangle {
+            width: 350px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.5); /* White color with 30% opacity */
+            margin: 10px;
+            text-align: center;
+            line-height: 140px; /* Adjusted line-height to vertically center text */
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden; /* Added overflow property to prevent content overflow */
+        }
+
+        .total-rectangle img {
+            max-width: 110px; /* Increased max-width for the image */
+            max-height: 140px; /* Increased max-height for the image */
+            position: absolute;
+            top: 50%;
+            left:27%;
+            transform: translate(-50%, -50%);
+        }
+
+        .total-text {
+            color: white; /* Updated text color */
+            font-weight: bold;
+            font-size: 45px; /* Increased font size */
+            position: absolute;
+            top: 50%; /* Centered vertically */
+            left: 68%; /* Centered horizontally */
+            transform: translate(-50%, -50%);
+        }
+
+        .small-rectangle {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.5); /* White color with 30% opacity */
+            margin: 10px;
+            text-align: center;
+            line-height: 165px; /* Adjusted line-height to vertically center text */
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .small-rectangle img {
+            max-width: 55px; /* Adjusted max-width for the images */
+            max-height: 100px; /* Adjusted max-height for the images */
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Hover effect for the big rectangle */
+        .total-rectangle:hover {
+            transform: scale(1.05); /* Increase size on hover */
+            transition: transform 0.3s ease; /* Add transition for smooth animation */
+        }
+
+        /* Hover effect for the small rectangles */
+        .small-rectangle:hover {
+            transform: scale(1.05); /* Increase size on hover */
+            transition: transform 0.3s ease; /* Add transition for smooth animation */
+        }
+
+        .overlay-text {
+            color: white; /* Updated text color */
+            font-weight: bold;
+            position: absolute;
+            left: 10px; /* Adjusted left position for overlay text */
+            bottom: -60px; /* Adjusted bottom position for overlay text */
+            width: calc(100% - 20px); /* Adjusted width */
+        }
+
+        .dashboard {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 64px; /* Set the same height as in the first HTML page */
+            background-color: rgba(211, 220, 222, 0.8); /* Updated background color with opacity */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* Hover effect for dashboard buttons */
+        .dashboard img:hover {
+            transform: scale(1.1); /* Increase size on hover */
+            transition: transform 0.3s ease; /* Add transition for smooth animation */
+        }
+
+        .product-heading {
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .product-category-heading {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .wave-emoji {
+            position: absolute;
+            top: -3px;
+            left: 87px;
+            font-size: 16px;
+        }
+        
+        .profile-container {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+        }
+
+      /* Style for the dropdown menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }   
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 155px; /* Reduced the width of the dropdown */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    transition: all 0.3s ease; /* Added transition for smoother animation */
+}
+
+.show {
+    display: block;
+}
+
+.profile-pic {
+    transition: all 0.3s ease; /* Added transition for smoother animation */
+}
+
+.profile-pic:hover {
+    transform: scale(1.1); /* Increase size on hover */
+}
+
+.profile-pic.clicked {
+    animation: pulse 0.5s; /* Added animation when clicked */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+        /* Style for the plus button */
+        .plus-button {
+            position: absolute;
+            bottom:110px; /* Adjusted bottom position */
+            right: 30px; /* Adjusted right position */
+            width: 40px;
+            height: 40px;
+            background-color: #007bff; /* Button background color */
+            border-radius: 50%; /* Rounded button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Button shadow */
+        }
+
+        /* Style for the plus button icon */
+        .plus-button img {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Style for the dropdown menu of the plus button */
+        .plus-dropdown {
+            position: absolute;
+            bottom: 70px; /* Adjusted bottom position */
+            right: 20px; /* Adjusted right position */
+            background-color: #ffffff; /* Dropdown background color */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Dropdown shadow */
+            display: none;
+        }
+
+        /* Show dropdown menu when hovering over the plus button */
+        .plus-button:hover .plus-dropdown {
+            display: block;
+        }
+
+        /* Style for the options in the plus button dropdown */
+        .plus-dropdown-option {
+            cursor: pointer;
+            margin-bottom: 5px;
+        color: black; /* Set text color to black */
+        width: 90px; /* Set width to make the options wider */
+
+
+        }
+
+        /* Add hover effect for the options in the plus button dropdown */
+        .plus-dropdown-option:hover {
+            background-color: #f0f0f0; /* Hover background color */
+        }
+
+        /* Style for the table container */
+        .table-container {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            margin-top: 20px; /* Adjusted margin for spacing */
+            padding: 0 25px; /* Adjusted padding for spacing */
+        }
+    </style>
+</head>
+<body>
+    <div style="position: absolute; left: 20px; top: 30px;">
+        <h5 style="font-size: 16px;">Hello Admin<span class="wave-emoji">👋</span></h5>
+    </div>
+    <div style="position: absolute; left: 20px; top: 50px;">
+        <h3 style="font-size: 18px;">Welcome Back!</h3>
+    </div>
+    <h1>PRODUCTS</h1>
+    <h1 class="overview-heading">platform category</h1>
+    <!-- Product information goes here -->
+    </div>
+    <div class="total-section">
+        <a href="total.html">
+            <div class="total-rectangle">
+                <img src="Icons/tot.png" alt="Total Image">
+                <h2 class="total-text">TOTAL</h2> <!-- Moved the "TOTAL" text inside the total rectangle -->
+            </div>
+        </a>
+        <a href="in.html">
+            <div class="small-rectangle">
+                <img src="Icons/in.png" alt="IN STORE">
+                <span class="overlay-text">IN STORE</span>
+            </div>
+        </a>
+        <a href="laz.html">
+            <div class="small-rectangle">
+                <img src="Icons/laz.png" alt="LAZADA">
+                <span class="overlay-text">LAZADA</span>
+            </div>
+        </a>
+        <a href="shopee.html">
+            <div class="small-rectangle">
+                <img src="Icons/shopee.png" alt="SHOPEE">
+                <span class="overlay-text">SHOPEE</span>
+            </div>
+        </a>
+    </div>
+    <!-- Bottom dashboard -->
+  <div class="dashboard" style="z-index: 1;">
+    <img src="Icons/menu.png" alt="Dashboard" onclick="window.location.href='dashboard.html'">
+    <img src="Icons/folder.png" alt="Folder" onclick="window.location.href='products.html'">
+    <img src="Icons/search.png" alt="Search" onclick="window.location.href='search.html'">
+    <img src="Icons/more.png" alt="More Options" onclick="window.location.href='more.html'">
+</div>
+
+    <!-- Profile picture container -->
+    <div class="profile-container">
+        <!-- Profile picture with dropdown -->
+        <div class="dropdown">
+            <img id="profile-pic" src="Icons/profile.png" alt="Profile" class="profile-pic" onclick="toggleDropdown()" style="width: 35px; height: 35px;">
+            <div class="dropdown-content" id="dropdown-content">
+                <a href="more.html">Account Settings</a>
+                <a href="login.html">Sign Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table container for horizontal scrolling -->
+<div class="table-container" style="max-height: 200px; overflow-y: auto;">
+    <h3 class="overview-heading">History</h3>
+    <div class="table-responsive" style="opacity: 0.9;">
+        <table class="table table-striped" style="background-color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+					<th>Category</th>
+                    <th>Timestamp</th>
+					
+                </tr>
+            </thead>
+            <tbody id="history-tbody">
+                <!-- History rows will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript for fetching and displaying history -->
+    <script>
+$(document).ready(function() {
+    const mockData = [
+        { action: 'Added', product_name: 'Product A', quantity: 10, category: 'Shopee', timestamp: '2025-08-11 10:00' },
+        { action: 'Removed', product_name: 'Product B', quantity: 5, category: 'Lazada', timestamp: '2025-08-10 14:30' }
+    ];
+
+    var historyTbody = $('#history-tbody');
+    mockData.forEach(function(item) {
+        var row = '<tr>' +
+            '<td>' + item.action + '</td>' +
+            '<td>' + item.product_name + '</td>' +
+            '<td>' + item.quantity + '</td>' +
+            '<td>' + item.category + '</td>' +
+            '<td>' + item.timestamp + '</td>' +
+            '</tr>';
+        historyTbody.append(row);
+    });
+});
+    </script>
+</body>
+</html>

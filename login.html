@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raki's Beauty Product Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0D1321;
+        }
+
+        form {
+            border-radius: 5px;
+            padding: 30px;
+            width: 100%;
+            max-width: 300px;
+            text-align: left;
+            background-color: #0D1321;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        button[type="submit"] {
+            background-color: #2D2E72;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+            width: 50%;
+            display: block;
+            margin-right: 70px; /* add 20px margin to the right */
+            margin-left: auto; /* move the image to the right */
+            margin-top: 20px; /* add some margin to the top */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2D2E72;
+        }
+
+        .title-image {
+            width: 40%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            margin-left: auto; /* move the image to the right */
+            margin-right: 83px; /* add 20px margin to the right */
+        }
+    </style>
+</head>
+<body>
+<form id="loginForm" action="#" method="post">
+        <img src="Icons/logo.png" alt="Title Image" class="title-image">
+        <h1>Raki's Beauty Product Shop</h1>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    </script>
+</body>
+</html>
